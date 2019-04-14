@@ -132,6 +132,7 @@ $task_list = [
                 <table class="tasks">
                     <!--цикл замены содержимого таблицы данными из масива задач-->
                     <?php foreach ($task_list as $key => $item): ?>
+                    <!--не показывать выполненую задачу-->
                     <?php if ($item['completed'] && ($show_complete_tasks)): ?>
                     <tr class="tasks__item task <?php if ($item['completed']): ?>task--completed<?php endif ?>">
                         <td class="task__select">
