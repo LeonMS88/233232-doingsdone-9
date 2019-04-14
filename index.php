@@ -8,45 +8,45 @@ $num_count = count($progect);
 //массив задач
 $task_list = [
     [
-        'Задача' => 'Собеседование в IT компанию',
-        'Дата выполнения' => '01.12.2018',
-        'Категория' => 'Работа',
-        'Выполнен' => 'Нет'
+        'task' => 'Собеседование в IT компанию',
+        'date' => '01.12.2018',
+        'category' => 'Работа',
+        'completed' => false
     ],
 
     [
-        'Задача' => 'Выполнить тестовое задание',
-        'Дата выполнения' => '25.12.2018',
-        'Категория' => 'Работа',
-        'Выполнен' => 'Нет'
+        'task' => 'Выполнить тестовое задание',
+        'date' => '25.12.2018',
+        'category' => 'Работа',
+        'completed' => false
     ],
 
     [
-        'Задача' => 'Сделать задание первого раздела',
-        'Дата выполнения' => '21.12.2018',
-        'Категория' => 'Учеба',
-        'Выполнен' => 'Да'
+        'task' => 'Сделать задание первого раздела',
+        'date' => '21.12.2018',
+        'category' => 'Учеба',
+        'completed' => true
     ],
 
     [
-        'Задача' => 'Встреча с другом',
-        'Дата выполнения' => '22.12.2018',
-        'Категория' => 'Входящие',
-        'Выполнен' => 'Нет'
+        'task' => 'Встреча с другом',
+        'date' => '22.12.2018',
+        'category' => 'Входящие',
+        'completed' => false
     ],
 
     [
-        'Задача' => 'Купить корм для кота',
-        'Дата выполнения' => 'Нет',
-        'Категория' => 'Домашние дела',
-        'Выполнен' => 'Нет'
+        'task' => 'Купить корм для кота',
+        'date' => 'Нет',
+        'category' => 'Домашние дела',
+        'completed' => false
     ],
 
     [
-        'Задача' => 'Заказать пиццу',
-        'Дата выполнения' => 'Нет',
-        'Категория' => 'Домашние дела',
-        'Выполнен' => 'Нет'
+        'task' => 'Заказать пиццу',
+        'date' => 'Нет',
+        'category' => 'Домашние дела',
+        'completed' => false
     ],
 ];
 ?>
@@ -132,11 +132,12 @@ $task_list = [
                 <table class="tasks">
                     <!--цикл замены содержимого таблицы данными из масива задач-->
                     <?php foreach ($task_list as $key => $item): ?>
-                    <tr class="tasks__item task <?php if (isset($task_list['Выполнен']['Да'])): ?>task--completed<?php endif ?>">
+                    <?php if ($item['completed'] && ($show_complete_tasks)): ?>
+                    <tr class="tasks__item task <?php if ($item['completed']): ?>task--completed<?php endif ?>">
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
-                                <span class="checkbox__text"><?=$item['Задача'];?></span>
+                                <span class="checkbox__text"><?=$item['task'];?></span>
                             </label>
                         </td>
 
@@ -144,19 +145,20 @@ $task_list = [
                             <a class="download-link" href="#">Home.psd</a>
                         </td>
 
-                        <td class="task__date"><?=$item['Дата выполнения'];?></td>
+                        <td class="task__date"><?=$item['date'];?></td>
                     </tr>
+                    <?php endif ?>
                     <!--показывать следующий тег <tr/>, если переменная $show_complete_tasks равна единице-->
                     <?php if ($show_complete_tasks): ?>
                     <tr class="tasks__item task task--completed">
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden" type="checkbox" checked>
-                                <span class="checkbox__text"><?=$item['Задача'];?></span>
+                                <span class="checkbox__text"><?=$item['task'];?></span>
                             </label>
                         </td>
-                        <td class="task__date"><?=$item['Дата выполнения'];?></td>
-                        <td class="task__controls"><?=$item['Выполнен'];?></td>
+                        <td class="task__date"><?=$item['date'];?></td>
+                        <td class="task__controls"><?=$item['compete'];?></td>
                     </tr>
                     <?php endif ?>
                     <?php endforeach; ?>
