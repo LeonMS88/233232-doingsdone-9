@@ -49,6 +49,17 @@ $task_list = [
         'completed' => false
     ],
 ];
+// Функция подсчета задач
+function count_task ($task_list, $progect_name) {                                                                                                  
+    $number_tasks = 0;                              
+    foreach($task_list as $item) {                  
+        if ($item['category'] === $progect_name){     
+            $number_tasks++;                          
+        }
+    }
+    return $number_tasks;                           
+}  
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -94,7 +105,8 @@ $task_list = [
                         <?php while ($index < $num_count): ?>
                         <li class="main-navigation__list-item">
                             <a class="main-navigation__list-item-link" href="#"><?=$progect[$index];?></a>
-                            <span class="main-navigation__list-item-count">0</span>
+                            <!--вызов функции подсчета задач-->
+                            <span class="main-navigation__list-item-count"><?=count_task ($task_list, $progect[$index]);?></span>
                         </li>
                         <?php $index++; ?>
                         <?php endwhile; ?>
