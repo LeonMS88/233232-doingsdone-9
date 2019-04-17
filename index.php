@@ -49,6 +49,17 @@ $task_list = [
         'completed' => false
     ],
 ];
+// Функция подсчета задач
+function count_task ($task_list, $progect_name) {                                                                                                  
+    $number_tasks = 0;                              
+    foreach($task_list as $item) {                  
+        if ($item['category'] === $progect_name){     
+            $number_tasks++;                          
+        }
+    }
+    return $number_tasks;                           
+}  
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -94,7 +105,8 @@ $task_list = [
                         <?php while ($index < $num_count): ?>
                         <li class="main-navigation__list-item">
                             <a class="main-navigation__list-item-link" href="#"><?=$progect[$index];?></a>
-                            <span class="main-navigation__list-item-count">0</span>
+                            <!--вызов функции подсчета задач-->
+                            <span class="main-navigation__list-item-count"><?=count_task ($task_list, $progect[$index]);?></span>
                         </li>
                         <?php $index++; ?>
                         <?php endwhile; ?>
@@ -132,7 +144,8 @@ $task_list = [
                 <table class="tasks">
                     <!--цикл замены содержимого таблицы данными из масива задач-->
                     <?php foreach ($task_list as $key => $item): ?>
-                    <?php if ($item['completed'] && ($show_complete_tasks)): ?>
+                    <!--показывать следующий тег <tr/>, если переменная $show_complete_tasks равна единице и не показывать выполненую задачу-->
+                    <?php if ($show_complete_tasks === 1 || ($item['completed'] && $show_complete_tasks === 0)): ?>
                     <tr class="tasks__item task <?php if ($item['completed']): ?>task--completed<?php endif ?>">
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
@@ -147,9 +160,9 @@ $task_list = [
 
                         <td class="task__date"><?=$item['date'];?></td>
                     </tr>
-                    <?php endif ?>
+                    
                     <!--показывать следующий тег <tr/>, если переменная $show_complete_tasks равна единице-->
-                    <?php if ($show_complete_tasks): ?>
+                    
                     <tr class="tasks__item task task--completed">
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
@@ -158,7 +171,7 @@ $task_list = [
                             </label>
                         </td>
                         <td class="task__date"><?=$item['date'];?></td>
-                        <td class="task__controls"><?=$item['compete'];?></td>
+                        <td class="task__controls"><?=$item['completed'];?></td>
                     </tr>
                     <?php endif ?>
                     <?php endforeach; ?>
