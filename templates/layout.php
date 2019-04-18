@@ -1,10 +1,11 @@
 <?php
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
-//массив проектов
-$progect = ["Входящие", "Учеба", "Работа", "Домашние дела", "Авто"];
 $index = 0;
 $num_count = count($progect);
+//массив проектов
+$progect = ["Входящие", "Учеба", "Работа", "Домашние дела", "Авто"];
+
 //массив задач
 $task_list = [
     [
@@ -106,7 +107,7 @@ $task_list = [
             </section>
 
             <main class="content__main">
-            <?=$main;?>
+            <?=$main_content;?>
             </main>
         </div>
     </div>
