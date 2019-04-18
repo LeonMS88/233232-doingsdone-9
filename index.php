@@ -51,10 +51,11 @@ $task_list = [
     ],
 ];
 
+
 include 'functions.php';
 
-$page_content = include_template ('index.php', ['progect' => $progect], ['task_list' => $task_list]);
+$page_content = include_template ('index.php', ['progect' => $progect, 'task_list' => $task_list, 'show_complete_tasks' => $show_complete_tasks]);
 
-$layout_content = include_template ('layout.php',['main_content' => $main_content, 'title' => 'Дела в Порядке']);
+$layout_content = include_template ('layout.php', ['progect' => $progect, 'index' => $index, 'num_count' => $num_count, 'main_content' => $page_content, 'title' => 'Дела в Порядке']);
 
 print($layout_content);
