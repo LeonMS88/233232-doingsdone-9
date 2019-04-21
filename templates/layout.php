@@ -39,13 +39,12 @@
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
                         <!--цикл для прохода по массиву проектов-->
-                        <?php while ($index < $num_count): ?>
+                        <?php foreach ($progect as $key => $item): ?>
                         <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#"><?=$progect[$index];?></a>
-                            <span class="main-navigation__list-item-count"><?=count_task ($task_list, $progect[$index]);?></span>
+                            <a class="main-navigation__list-item-link" href="#"><?=htmlspecialchars($item);?></a>
+                            <span class="main-navigation__list-item-count"><?=count_task ($task_list, $progect[$key]);?></span>
                         </li>
-                        <?php $index++; ?>
-                        <?php endwhile; ?>
+                        <?php endforeach; ?>
                     </ul>
                 </nav>
 

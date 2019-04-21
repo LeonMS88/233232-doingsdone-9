@@ -1,10 +1,11 @@
 <?php
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
-$index = 0;
-$num_count = count($progect);
+
 //массив проектов
 $progect = ["Входящие", "Учеба", "Работа", "Домашние дела", "Авто"];
+
+$num_count = count($progect);
 
 //массив задач
 $task_list = [
@@ -56,6 +57,6 @@ include 'functions.php';
 
 $page_content = include_template ('index.php', ['progect' => $progect, 'task_list' => $task_list, 'show_complete_tasks' => $show_complete_tasks]);
 
-$layout_content = include_template ('layout.php', ['progect' => $progect, 'index' => $index, 'num_count' => $num_count, 'main_content' => $page_content, 'title' => 'Дела в Порядке']);
+$layout_content = include_template ('layout.php', ['progect' => $progect, 'task_list' => $task_list, 'num_count' => $num_count, 'main_content' => $page_content, 'title' => 'Дела в Порядке']);
 
 print($layout_content);
