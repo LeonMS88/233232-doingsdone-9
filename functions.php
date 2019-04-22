@@ -51,5 +51,9 @@ function dead_line ($value) {
     //Переводим оставшееся время из секунд в часы
     $hours_left = floor($time_left / 3600);
 
+    if ($value === 'Нет') {
+        return 999;
+    }
+
     return $hours_left;
 }
