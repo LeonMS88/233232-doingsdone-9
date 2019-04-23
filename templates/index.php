@@ -21,33 +21,21 @@
 </div>
 
 <table class="tasks">
-<!--цикл замены содержимого таблицы данными из масива задач-->
-<?php foreach ($task_list as $key => $item): ?>
-<?php if ($item['completed'] && ($show_complete_tasks)): ?>
-<tr class="tasks__item task <?php if ($item['completed']): ?>task--completed<?php endif ?>">
-    <td class="task__select">
-        <label class="checkbox task__checkbox">
-            <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
-            <span class="checkbox__text"><?=htmlspecialchars($item['task']);?></span>
-        </label>
-    </td>
-    <td class="task__file">
-        <a class="download-link" href="#">Home.psd</a>
-    </td>
-    <td class="task__date"><?=$item['date'];?></td>
-</tr>
-<?php endif ?>
-<!--показывать следующий тег <tr/>, если переменная $show_complete_tasks равна единице-->
-<?php if ($show_complete_tasks): ?>
-<tr class="tasks__item task task--completed">
-    <td class="task__select">
-        <label class="checkbox task__checkbox">
-            <input class="checkbox__input visually-hidden" type="checkbox" checked>
-            <span class="checkbox__text"><?=$item['task'];?></span>
-        </label>
-    </td>
-    <td class="task__date"><?=$item['date'];?></td>
-    <td class="task__controls"><?=$item['compete'];?></td>
-</tr>
-<?php endif ?>
-<?php endforeach; ?></table>
+    <!--цикл замены содержимого таблицы данными из масива задач-->
+    <?php foreach ($task_list as $key => $item): ?>
+        <?php if (!$item['completed'] || ($item['completed'] && $show_complete_tasks === 1)): ?>
+            <tr class="tasks__item task <?php if ($item['completed']): ?>task--completed<?php endif ?> <?php if (dead_line($item['date']) <= 24 && !$item['completed']): ?>task--important<?php endif ?>">
+                <td class="task__select">
+                    <label class="checkbox task__checkbox">
+                        <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
+                        <span class="checkbox__text"><?=htmlspecialchars($item['task']);?></span>
+                    </label>
+                </td>
+                <td class="task__file">
+                    <a class="download-link" href="#">Home.psd</a>
+                </td>
+                <td class="task__date"><?=$item['date'];?></td>
+            </tr>
+        <?php endif ?>
+    <?php endforeach; ?>
+</table>

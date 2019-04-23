@@ -1,5 +1,5 @@
 <?php
-// показывать или нет выполненные задачи
+//показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
 
 //массив проектов
@@ -11,21 +11,21 @@ $num_count = count($progect);
 $task_list = [
     [
         'task' => 'Собеседование в IT компанию',
-        'date' => '01.12.2018',
+        'date' => '26.04.2019',
         'category' => 'Работа',
         'completed' => false
     ],
 
     [
         'task' => 'Выполнить тестовое задание',
-        'date' => '25.12.2018',
+        'date' => '25.04.2019',
         'category' => 'Работа',
         'completed' => false
     ],
 
     [
         'task' => 'Сделать задание первого раздела',
-        'date' => '21.12.2018',
+        'date' => '1.05.2018',
         'category' => 'Учеба',
         'completed' => true
     ],
@@ -51,7 +51,6 @@ $task_list = [
         'completed' => false
     ],
 ];
-
 
 include 'functions.php';
 
