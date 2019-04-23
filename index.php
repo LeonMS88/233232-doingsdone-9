@@ -11,14 +11,14 @@ $num_count = count($progect);
 $task_list = [
     [
         'task' => 'Собеседование в IT компанию',
-        'date' => '23.04.2019',
+        'date' => '26.04.2019',
         'category' => 'Работа',
         'completed' => false
     ],
 
     [
         'task' => 'Выполнить тестовое задание',
-        'date' => '24.04.2019',
+        'date' => '25.04.2019',
         'category' => 'Работа',
         'completed' => false
     ],
