@@ -1,74 +1,61 @@
--- MySQL Workbench Forward Engineering
+-- --------------------------------------------------------
+-- Хост:                         127.0.0.1
+-- Версия сервера:               10.3.13-MariaDB - mariadb.org binary distribution
+-- Операционная система:         Win64
+-- HeidiSQL Версия:              10.1.0.5464
+-- --------------------------------------------------------
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
-
--- -----------------------------------------------------
--- Table `mydb`.`user`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`user` (
-  `user_id` INT UNSIGNED NOT NULL,
-  `user_add` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `user_email` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
-  `user_name` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
-  `user_password` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
-  PRIMARY KEY (`user_id`));
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`progect`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`progect` (
-  `progect_id` INT NOT NULL,
-  `progect_name` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
-  `user_id` INT UNSIGNED NOT NULL,
+-- Дамп структуры базы данных things are fine id233232
+CREATE DATABASE IF NOT EXISTS `things are fine id233232` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `things are fine id233232`;
+
+-- Дамп структуры для таблица things are fine id233232.progect
+CREATE TABLE IF NOT EXISTS `progect` (
+  `progect_id` int(11) NOT NULL,
+  `progect_name` varchar(50) NOT NULL,
+  `user_id` int(11) NOT NULL,
   PRIMARY KEY (`progect_id`),
-  INDEX `fk_progect_user_idx` (`user_id` ASC),
-  CONSTRAINT `fk_progect_user`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+  KEY `FK_progect_user` (`user_id`),
+  CONSTRAINT `FK_progect_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
--- -----------------------------------------------------
--- Table `mydb`.`task`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`task` (
-  `task_id` INT NOT NULL,
-  `task_create` DATETIME NULL,
-  `task_status` INT NULL,
-  `task_name` VARCHAR(255) NOT NULL,
-  `task_file` VARCHAR(255) NULL,
-  `task_completed` VARCHAR(255) NULL,
-  `user_id` INT UNSIGNED NOT NULL,
-  `progect_id` INT NOT NULL,
+-- Экспортируемые данные не выделены.
+-- Дамп структуры для таблица things are fine id233232.task
+CREATE TABLE IF NOT EXISTS `task` (
+  `task_id` int(11) NOT NULL,
+  `task_create` datetime NOT NULL,
+  `task_status` int(11) NOT NULL,
+  `task_name` varchar(50) NOT NULL,
+  `task_file` varchar(50) NOT NULL,
+  `task_completed` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `progect_id` int(11) NOT NULL,
   PRIMARY KEY (`task_id`),
-  INDEX `fk_task_user1_idx` (`user_id` ASC),
-  INDEX `fk_task_progect1_idx` (`progect_id` ASC),
-  CONSTRAINT `fk_task_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_task_progect1`
-    FOREIGN KEY (`progect_id`)
-    REFERENCES `mydb`.`progect` (`progect_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+  KEY `FK_task_user` (`user_id`),
+  KEY `FK_task_progect` (`progect_id`),
+  CONSTRAINT `FK_task_progect` FOREIGN KEY (`progect_id`) REFERENCES `progect` (`progect_id`),
+  CONSTRAINT `FK_task_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- Экспортируемые данные не выделены.
+-- Дамп структуры для таблица things are fine id233232.user
+CREATE TABLE IF NOT EXISTS `user` (
+  `user_id` int(11) NOT NULL,
+  `user_add` datetime NOT NULL,
+  `user_email` varchar(50) NOT NULL,
+  `user_name` varchar(50) NOT NULL,
+  `user_password` varchar(50) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+-- Экспортируемые данные не выделены.
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
