@@ -18,9 +18,9 @@ USE `things are fine id233232`;
 
 -- Дамп структуры для таблица things are fine id233232.progect
 CREATE TABLE IF NOT EXISTS `progect` (
-  `progect_id` int(11) NOT NULL,
+  `progect_id` int(11) NOT NULL AUTO_INCREMENT,
   `progect_name` varchar(50) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`progect_id`),
   KEY `FK_progect_user` (`user_id`),
   CONSTRAINT `FK_progect_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
@@ -29,14 +29,14 @@ CREATE TABLE IF NOT EXISTS `progect` (
 -- Экспортируемые данные не выделены.
 -- Дамп структуры для таблица things are fine id233232.task
 CREATE TABLE IF NOT EXISTS `task` (
-  `task_id` int(11) NOT NULL,
+  `task_id` int(11) NOT NULL AUTO_INCREMENT,
   `task_create` datetime NOT NULL,
   `task_status` int(11) NOT NULL,
   `task_name` varchar(50) NOT NULL,
   `task_file` varchar(50) NOT NULL,
   `task_completed` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `progect_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `progect_id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`task_id`),
   KEY `FK_task_user` (`user_id`),
   KEY `FK_task_progect` (`progect_id`),
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `task` (
 -- Экспортируемые данные не выделены.
 -- Дамп структуры для таблица things are fine id233232.user
 CREATE TABLE IF NOT EXISTS `user` (
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_add` datetime NOT NULL,
   `user_email` varchar(50) NOT NULL,
   `user_name` varchar(50) NOT NULL,
