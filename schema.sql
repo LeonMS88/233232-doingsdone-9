@@ -14,7 +14,7 @@
 
 -- Дамп структуры базы данных things are fine id233232
 CREATE DATABASE IF NOT EXISTS `things are fine id233232` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `things are fine id233232`;
+USE `db_233232`;
 
 -- Дамп структуры для таблица things are fine id233232.progect
 CREATE TABLE IF NOT EXISTS `progect` (

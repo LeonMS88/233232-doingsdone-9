@@ -59,3 +59,27 @@ $page_content = include_template ('index.php', ['progect' => $progect, 'task_lis
 $layout_content = include_template ('layout.php', ['progect' => $progect, 'task_list' => $task_list, 'num_count' => $num_count, 'main_content' => $page_content, 'title' => 'Дела в Порядке']);
 
 print($layout_content);
+
+//Соединение с БД
+$link = mysqli_connect('127.0.0.1', 'root', '', 'db_233232');
+
+//Установка кодировки в utf8
+mysqli_set_charset($link, "utf8");
+
+$progect = [];
+
+//Проверка соединения
+if (!$link) {
+    print('Ошибка подключения: ' . mysqli_connect_error());
+}
+//Выполнение запроса на получение списка проектов
+else {
+    $sql = 'SELECT * FROM progect WHERE user_id = 57';
+    $result = mysqli_query($link, $sql);
+}
+
+$progect = mysqli_fetch_assoc($result);
+
+print(include_template('layout.php', ['progect' => $progect]));
+
+
