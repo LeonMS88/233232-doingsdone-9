@@ -3,11 +3,51 @@
 $show_complete_tasks = rand(0, 1);
 
 //массив проектов
-$progect = ["Входящие", "Учеба", "Работа", "Домашние дела", "Авто"];
+//$progect = ["Входящие", "Учеба", "Работа", "Домашние дела", "Авто"];
 
-$num_count = count($progect);
+//Соединение с БД
+$link = mysqli_connect('127.0.0.1', 'root', '', 'db_233232');
+
+//Установка кодировки в utf8
+mysqli_set_charset($link, "utf8");
+
+//Проверка соединения
+if (!$link) {
+    print('Ошибка подключения: ' . mysqli_connect_error());
+}
+
+//Выполнение запроса на получение списка проектов
+else {
+    $sql = 'SELECT progect_name FROM progect WHERE user_id = 55';
+    $result = mysqli_query($link, $sql);
+    if ($result) {
+        $progect = mysqli_fetch_assoc($result);
+        $num_count = count($progect);
+    }
+    $sql = 'SELECT * FROM task WHERE user_id = 55';
+    if ($result) {
+        $task_list = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+} 
+
+//массив проектов
+
+
+
+/*
+//Выполнение запроса на получение списка задач
+$sql = 'SELECT * FROM task WHERE user_id = 55';
+$result = mysqli_query($link, $sql);
 
 //массив задач
+$task_list = mysqli_fetch_all($result, MYSQLI_ASSOC);
+*/
+
+
+
+
+
+/*
 $task_list = [
     [
         'task' => 'Собеседование в IT компанию',
@@ -51,6 +91,7 @@ $task_list = [
         'completed' => false
     ],
 ];
+*/
 
 include 'functions.php';
 
@@ -59,27 +100,3 @@ $page_content = include_template ('index.php', ['progect' => $progect, 'task_lis
 $layout_content = include_template ('layout.php', ['progect' => $progect, 'task_list' => $task_list, 'num_count' => $num_count, 'main_content' => $page_content, 'title' => 'Дела в Порядке']);
 
 print($layout_content);
-
-//Соединение с БД
-$link = mysqli_connect('127.0.0.1', 'root', '', 'db_233232');
-
-//Установка кодировки в utf8
-mysqli_set_charset($link, "utf8");
-
-$progect = [];
-
-//Проверка соединения
-if (!$link) {
-    print('Ошибка подключения: ' . mysqli_connect_error());
-}
-//Выполнение запроса на получение списка проектов
-else {
-    $sql = 'SELECT * FROM progect WHERE user_id = 57';
-    $result = mysqli_query($link, $sql);
-}
-
-$progect = mysqli_fetch_assoc($result);
-
-print(include_template('layout.php', ['progect' => $progect]));
-
-
