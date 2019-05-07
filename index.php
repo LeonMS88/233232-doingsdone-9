@@ -6,7 +6,7 @@ $show_complete_tasks = rand(0, 1);
 //$progect = ["Входящие", "Учеба", "Работа", "Домашние дела", "Авто"];
 
 //Соединение с БД
-$link = mysqli_connect('127.0.0.1', 'root', '', 'db_233232');
+$link = mysqli_connect('127.0.0.1', 'root', '', 'data_233232');
 
 //Установка кодировки в utf8
 mysqli_set_charset($link, "utf8");
@@ -16,82 +16,22 @@ if (!$link) {
     print('Ошибка подключения: ' . mysqli_connect_error());
 }
 
-//Выполнение запроса на получение списка проектов
+//Выполнение запроса на получение списка проектов и списка задач
 else {
-    $sql = 'SELECT progect_name FROM progect WHERE user_id = 55';
+    //массив проектов
+    $sql = 'SELECT progect_id, progect_name FROM progect WHERE user_id = 3';
     $result = mysqli_query($link, $sql);
-    if ($result) {
-        $progect = mysqli_fetch_assoc($result);
+    if(result) {
+        $progect = mysqli_fetch_all($result, MYSQLI_ASSOC);
         $num_count = count($progect);
     }
-    $sql = 'SELECT * FROM task WHERE user_id = 55';
-    if ($result) {
+    //массив задач
+    $sql = 'SELECT * FROM task WHERE user_id = 3';
+    $result = mysqli_query($link, $sql);
+    if(result) {
         $task_list = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
-} 
-
-//массив проектов
-
-
-
-/*
-//Выполнение запроса на получение списка задач
-$sql = 'SELECT * FROM task WHERE user_id = 55';
-$result = mysqli_query($link, $sql);
-
-//массив задач
-$task_list = mysqli_fetch_all($result, MYSQLI_ASSOC);
-*/
-
-
-
-
-
-/*
-$task_list = [
-    [
-        'task' => 'Собеседование в IT компанию',
-        'date' => '26.04.2019',
-        'category' => 'Работа',
-        'completed' => false
-    ],
-
-    [
-        'task' => 'Выполнить тестовое задание',
-        'date' => '25.04.2019',
-        'category' => 'Работа',
-        'completed' => false
-    ],
-
-    [
-        'task' => 'Сделать задание первого раздела',
-        'date' => '1.05.2018',
-        'category' => 'Учеба',
-        'completed' => true
-    ],
-
-    [
-        'task' => 'Встреча с другом',
-        'date' => '22.12.2018',
-        'category' => 'Входящие',
-        'completed' => false
-    ],
-
-    [
-        'task' => 'Купить корм для кота',
-        'date' => 'Нет',
-        'category' => 'Домашние дела',
-        'completed' => false
-    ],
-
-    [
-        'task' => 'Заказать пиццу',
-        'date' => 'Нет',
-        'category' => 'Домашние дела',
-        'completed' => false
-    ],
-];
-*/
+}
 
 include 'functions.php';
 

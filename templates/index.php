@@ -23,18 +23,18 @@
 <table class="tasks">
     <!--цикл замены содержимого таблицы данными из масива задач-->
     <?php foreach ($task_list as $key => $item): ?>
-        <?php if (!$item['completed'] || ($item['completed'] && $show_complete_tasks === 1)): ?>
-            <tr class="tasks__item task <?php if ($item['completed']): ?>task--completed<?php endif ?> <?php if (dead_line($item['date']) <= 24 && !$item['completed']): ?>task--important<?php endif ?>">
+        <?php if (!$item['task_completed'] || ($item['task_completed'] && $show_complete_tasks === 1)): ?>
+            <tr class="tasks__item task <?php if ($item['task_completed']): ?>task--completed<?php endif ?> <?php if (dead_line($item['task_deadline']) <= 24 && !$item['task_completed']): ?>task--important<?php endif ?>">
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
                         <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
-                        <span class="checkbox__text"><?=htmlspecialchars($item['task']);?></span>
+                        <span class="checkbox__text"><?=htmlspecialchars($item['task_name']);?></span>
                     </label>
                 </td>
                 <td class="task__file">
-                    <a class="download-link" href="#">Home.psd</a>
+                    <a class="download-link" href="#"><?=htmlspecialchars($item['task_file']);?></a>
                 </td>
-                <td class="task__date"><?=$item['date'];?></td>
+                <td class="task__date"><?=date('d.m.Y', $item['task_deadline']);?></td>
             </tr>
         <?php endif ?>
     <?php endforeach; ?>
