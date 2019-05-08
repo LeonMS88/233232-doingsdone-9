@@ -41,8 +41,8 @@
                         <!--цикл для прохода по массиву проектов-->
                         <?php foreach ($progect as $key => $item): ?>
                         <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#"><?=htmlspecialchars($item);?></a>
-                            <span class="main-navigation__list-item-count"><?=count_task ($task_list, $progect[$key]);?></span>
+                            <a class="main-navigation__list-item-link" href="#"><?=htmlspecialchars($item['progect_name']);?></a>
+                            <span class="main-navigation__list-item-count"><?=count_task($task_list, $progect[$key]['progect_id']);?></span>
                         </li>
                         <?php endforeach; ?>
                     </ul>

@@ -4,27 +4,25 @@ VALUES (NOW(), 'john@gmail.com', 'John', 'qwerty12345'),
 		 (NOW(), 'michael@gmail.com', 'Michael', 'qwerty34567');
 		 
 INSERT INTO progect (progect_name, user_id)
-VALUES ('Входящие', 57), ('Учеба', 56), ('Работа', 55), ('Домашние дела', 64), ('Авто', 65), ('Отпуск', 60);
+VALUES ('Входящие', 1), ('Учеба', 2), ('Работа', 3), ('Домашние дела', 2), ('Авто', 1), ('Отпуск', 3);
 
-INSERT INTO task (task_create, task_name, task_file, task_completed, task_category, user_id, progect_id) 
-VALUES (NOW(), 'Собеседование в IT компанию', 'task.txt', FALSE, 'Работа', 55, 52), 
-		 (NOW(), 'Выполнить тестовое задание', 'task.txt', FALSE, 'Работа', 79, 64),
-		 (NOW(), 'Сделать задание первого раздела', 'task.txt', TRUE, 'Учеба', 84, 75),
-		 (NOW(), 'Встреча с другом', 'task.txt', FALSE, 'Входящие', 74, 84),
-		 (NOW(), 'Купить корм для кота', 'task.txt', FALSE, 'Домашние дела', 68, 70),
-		 (NOW(), 'Заказать пиццу', 'task.txt', FALSE, 'Домашние дела', 91, 69),
-		 (NOW(), 'Поехать в NewYork', 'task.txt', TRUE, 'Отпуск', 207, 277);
+INSERT INTO task (task_name, task_category, task_file, task_create, task_deadline, task_completed, user_id, progect_id) 
+VALUES ('Собеседование в IT компанию', 'Работа', 'task.txt', NOW(), NOW(), 0,  3, 3), 
+		 ('Выполнить тестовое задание', 'Работа', 'task.txt', NOW(), NOW(), 0, 3, 3),
+		 ('Сделать задание первого раздела', 'Учеба', 'task.txt', NOW(), NOW(), 1, 2, 2),
+		 ('Встреча с другом', 'Входящие', 'task.txt', NOW(), NOW(), 0, 1, 1),
+		 ('Купить корм для кота', 'Домашние дела', 'task.txt', NOW(), NOW(), 0, 2, 4),
+		 ('Заказать пиццу', 'Домашние дела', 'task.txt',  NOW(), NOW(), 0, 2, 4),
+		 ('Поехать в NewYork', 'Отпуск', 'task.txt',  NOW(), NOW(), 1, 3, 6);
 		 
-SELECT * FROM progect WHERE user_id = '57';
+SELECT progect_name FROM progect WHERE user_id = '3';
 
 SELECT * FROM progect p
 JOIN task t
 ON p.progect_id = t.task_id;
 
-SELECT * FROM task WHERE progect_id = '75';
+SELECT * FROM task WHERE progect_id = '3';
 
-UPDATE task SET task_completed = 'TRUE'
+UPDATE task SET task_completed = 1
 WHERE task_name = 'Собеседование в IT компанию';
 
-UPDATE task SET task_name = 'Заказать пиццу и съесть её =)'
-WHERE task_id = '25';

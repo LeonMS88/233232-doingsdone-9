@@ -27,7 +27,7 @@ function include_template($name, array $data = []) {
 function count_task ($task_list, $progect_name) {                                                                                                  
     $number_tasks = 0;                              
     foreach($task_list as $item) {                  
-        if ($item['category'] === $progect_name){     
+        if ($item['progect_id'] === $progect_name){     
             $number_tasks++;                          
         }
     }
