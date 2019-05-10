@@ -2,9 +2,6 @@
 //показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
 
-//массив проектов
-//$progect = ["Входящие", "Учеба", "Работа", "Домашние дела", "Авто"];
-
 //Соединение с БД
 $link = mysqli_connect('127.0.0.1', 'root', '', 'data_233232');
 
@@ -31,6 +28,14 @@ else {
     if(result) {
         $task_list = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
+
+    $progect = $_GET;
+
+    $progect['progect_id'] = $progect['progect_id'];
+    
+    $query = http_build_query($progect);
+    $url = '/' .  '?' . $query;
+
 }
 
 include 'functions.php';
