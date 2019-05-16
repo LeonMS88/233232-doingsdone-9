@@ -28,13 +28,13 @@
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
                         <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
-                        <span class="checkbox__text"><?=htmlspecialchars($item['task_name']);?></span>
+                        <span class="checkbox__text"><?= htmlspecialchars($item['task_name']);?></span>
                     </label>
                 </td>
                 <td class="task__file">
-                    <a class="download-link" href="#"><?=htmlspecialchars($item['task_file']);?></a>
+                    <a class="download-link" href="#"><?= htmlspecialchars($item['task_file']);?></a>
                 </td>
-                <td class="task__date"><?=date('d.m.Y', $item['task_deadline']);?></td>
+                <td class="task__date"><?= date('d.m.Y', $item['task_deadline']);?></td>
             </tr>
         <?php endif ?>
     <?php endforeach; ?>
