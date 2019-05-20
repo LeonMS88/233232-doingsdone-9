@@ -15,14 +15,15 @@ if (!$link) {
 
 //Выполнение запроса на получение списка проектов и списка задач
 else {
-    //массив проектов
+
+//Массив проектов
     $sql = 'SELECT progect_id, progect_name FROM progect WHERE user_id = 3';
     $result = mysqli_query($link, $sql);
     if(result) {
         $progect = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-    //формирование адреса ссылки
+//Формирование адреса ссылки
     $progects = $_GET;
 
     $progects['progect_id'] = $progect['progect_id'];
@@ -32,7 +33,7 @@ else {
 
 }
 
-//проверка на существования параметра запроса с идентификатором проекта 
+//Проверка на существования параметра запроса с идентификатором проекта 
 if(isset($_GET['progect_id']) && !empty($_GET['progect_id'])) {
     $progect_id = mysqli_real_escape_string($link, $_GET["progect_id"]);
     $sql = "SELECT * FROM task WHERE progect_id = $progect_id";
@@ -40,10 +41,12 @@ if(isset($_GET['progect_id']) && !empty($_GET['progect_id'])) {
     if(result) {
         $task_list = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
-    //404
+
+//404
     if(!in_array($progect_id, array_column($progect, "progect_id"))) {
         header("Location: templates/error.php");
     }
+
 } else {
     $sql = "SELECT * FROM task WHERE user_id = 3";
     $result = mysqli_query($link, $sql);
@@ -52,14 +55,12 @@ if(isset($_GET['progect_id']) && !empty($_GET['progect_id'])) {
     }
 }
 
-
-
-
-
 include 'functions.php';
 
 $page_content = include_template ('index.php', ['progect' => $progect, 'task_list' => $task_list, 'show_complete_tasks' => $show_complete_tasks]);
 
-$layout_content = include_template ('layout.php', ['progect' => $progect, 'progect_id' => $progect_id,'task_list' => $task_list, 'num_count' => $num_count, 'main_content' => $page_content, 'title' => 'Дела в Порядке']);
+$layout_content = include_template ('layout.php', ['progect' => $progect, 'progect_id' => $progect_id,
+                                                   'task_list' => $task_list, 'num_count' => $num_count, 
+                                                   'main_content' => $page_content, 'title' => 'Дела в Порядке']);
 
 print($layout_content);
