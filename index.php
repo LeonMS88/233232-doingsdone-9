@@ -19,7 +19,7 @@ else {
 //Массив проектов
     $sql = 'SELECT progect_id, progect_name FROM progect WHERE user_id = 3';
     $result = mysqli_query($link, $sql);
-    if(result) {
+    if($result) {
         $progect = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 

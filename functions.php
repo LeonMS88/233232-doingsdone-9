@@ -23,16 +23,7 @@ function include_template($name, array $data = []) {
     return $result;
 }
 
-// Функция подсчета задач
-function count_task ($task_list, $progect_name) {                                                                                                  
-    $number_tasks = 0;                              
-    foreach($task_list as $item) {                  
-        if ($item['progect_id'] === $progect_name){     
-            $number_tasks++;                          
-        }
-    }
-    return $number_tasks;                           
-}  
+
 
 //Подсчитывает сколько осталось часов до каждой из имеющихся дат
 //Если кол-во часов до выполнения задачи меньше или равно 24, то добавляет строке с задачей класс task--important

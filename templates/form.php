@@ -4,8 +4,10 @@
     <form class="form"  action="add.php" method="post" autocomplete="off" enctype="multipart/form-data">
         <div class="form__row">
             <label class="form__label" for="name">Название <sup>*</sup></label>
+
             <?php $class_name = isset($errors['name']) ? 'form__input--error' : '';
                   $name = isset($_POST['name']) ? $_POST['name'] : '';?>
+
             <input class="form__input <?= $errors['name'] ? 'form__input--error' : '' ?>" type="text" name="name" id="name" value="<?= $name; ?>" placeholder="Введите название">
             <?php if (isset($errors['name'])) : ?>
                 <p class='form__message'><?= $errors['name'] ?></p>
@@ -14,25 +16,37 @@
 
         <div class="form__row">
             <label class="form__label" for="project">Проект <sup>*</sup></label>
-            <?php $class_project = isset($errors['project']) ? 'form__input--error' : '';?>
+
+            <?php $class_project = isset($errors['project']) ? 'form__input--error' : '';
+                  $project = isset($_POST['project']) ? $_POST['project'] : '';?>
+            
             <select class="form__input <?=$class_project; ?>" name="project" id="project">
+
                 <?php foreach ($progect as $key => $value): ?>
                     <option value="<?=$progect[$key]["progect_id"];?>"><?=htmlspecialchars($progect[$key]["progect_name"]);?></option>
                 <?php endforeach; ?>
+
             </select>
+
             <?php if (isset($errors['project'])) : ?>
                 <p class='form__message'><?= $errors['project'] ?></p>
             <?php endif ?>
+
         </div>
 
         <div class="form__row">
+
             <label class="form__label" for="date">Дата выполнения</label>
+
             <?php $class_date = isset($errors['date']) ? 'form__input--error' : '';
-                  $date = $task['date'] ? $task['date'] : ''; ?>
-            <input class="form__input form__input--date <?=$class_name; ?>" type="text" name="date" id="date" value="<?= $date; ?>" placeholder="Введите дату в формате ГГГГ-ММ-ДД">
+                  $date = isset($_POST['date']) ? $_POST['date'] : ''; ?>
+
+            <input class="form__input form__input--date <?=$class_date; ?>" type="text" name="date" id="date" value="<?= $task['date']; ?>" placeholder="Введите дату в формате ГГГГ-ММ-ДД">
+            
             <?php if (isset($errors['date'])) : ?>
                 <p class='form__message'><?= $errors['date'] ?></p>
             <?php endif ?>
+
         </div>
 
         <div class="form__row">
@@ -42,8 +56,9 @@
             <input class="visually-hidden" type="file" name="file" id="file" value="">
 
             <label class="button button--transparent" for="file">
-            <span>Выберите файл</span>
+                <span>Выберите файл</span>
             </label>
+            
         </div>
         </div>
 
