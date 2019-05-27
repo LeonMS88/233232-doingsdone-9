@@ -17,8 +17,7 @@
         <div class="form__row">
             <label class="form__label" for="progect">Проект <sup>*</sup></label>
 
-            <?php $class_progect = isset($errors['progect']) ? 'form__input--error' : '';
-                  $progect = isset($_POST['progect']) ? $_POST['progect'] : '';?>
+            <?php $class_progect = isset($errors['progect']) ? 'form__input--error' : '';?>
             
             <select class="form__input <?=$class_progect; ?>" name="progect" id="progect">
 

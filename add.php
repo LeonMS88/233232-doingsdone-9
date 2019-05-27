@@ -23,7 +23,7 @@ else {
             FROM progect p
             LEFT JOIN task t
             ON t.progect_id = p.progect_id 
-            /*WHERE p.user_id = 3*/
+            WHERE p.user_id = 3
             GROUP BY p.progect_id';
     $result = mysqli_query($link, $sql);
     if($result) {
@@ -46,12 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 
-//Проверка что выбранный проект соответствует проекту из БД
-    foreach ($progect as $value) {
-        if ($value["progect_id"] !== ($_POST["progect"])) {
-            $errors["progect"] = "Выберете проект";
-        }
+//Проверка что проект выбран
+    if (empty($task['progect'])) {
+        $errors['progect'] = 'Выберите проект';
     }
+
 
 //Проверка что выбранная дата соответсвует параметрам
     if (!empty($task['date']) && !is_date_valid($task['date']) || $task['date'] < date('Y-m-d')) {
@@ -69,7 +68,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //Проверка на ошибки в форме 
     if (count($errors)) {
 		$errors['error'] = "Пожалуйста, исправьте ошибки в форме";
-	}
+    }
+
+//Добавление задачи в БД    
+    if (!count($errors)) {
+		$sql = 'INSERT INTO task (task_name, task_category, task_file, task_create, task_deadline, task_completed, user_id, progect_id)
+                VALUE(?, ?, ?, NOW(), ?, 0, 3, 3)';
+        $stmt = db_get_prepare_stmt($link, $sql, [$task['name'], $task['progect'], $task['date'], $file_url]);
+        $res = mysqli_stmt_execute($stmt);
+        if ($res) {
+            print('QWERTY');
+            header('Location: index.php');
+        }   
+    }
 }
 
 
