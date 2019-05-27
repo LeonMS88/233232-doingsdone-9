@@ -34,7 +34,7 @@
                 <td class="task__file">
                     <a class="download-link" href="<?= $file_url;?>"><?= htmlspecialchars($file_name);?></a>
                 </td>
-                <td class="task__date"><?= date('Y.m.d', $item['task_deadline']);?></td>
+                <td class="task__date"><?= date('Y-m-d', strtotime($item['task_deadline']));?></td>
             </tr>
         <?php endif ?>
     <?php endforeach; ?>

@@ -72,12 +72,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 //Добавление задачи в БД    
     if (!count($errors)) {
-		$sql = 'INSERT INTO task (task_name, task_category, task_file, task_create, task_deadline, task_completed, user_id, progect_id)
-                VALUE(?, ?, ?, NOW(), ?, 0, 3, 3)';
-        $stmt = db_get_prepare_stmt($link, $sql, [$task['name'], $task['progect'], $task['date'], $file_url]);
+		$sql = 'INSERT INTO task (task_name, task_file, task_create, task_deadline, task_completed, user_id, progect_id)
+                VALUE(?, ?, NOW(), ?, 0, 3, ?)';
+        $stmt = db_get_prepare_stmt($link, $sql, [$task['name'], $file_url, $task['date'], $task['progect']]);
         $res = mysqli_stmt_execute($stmt);
         if ($res) {
-            print('QWERTY');
             header('Location: index.php');
         }   
     }
