@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $file_path = __DIR__ . '/uploads/';
         $file_url = '/uploads/' . $file_name;
         move_uploaded_file($_FILES['file']['tmp_name'], $file_path . $file_name);
-    } 
+    }
 
 //Проверка на ошибки в форме 
     if (count($errors)) {
@@ -72,6 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 //Добавление задачи в БД    
     if (!count($errors)) {
+        if (!$file_name) {
+            $file_url = NULL;
+        }
 		$sql = 'INSERT INTO task (task_name, task_file, task_create, task_deadline, task_completed, user_id, progect_id)
                 VALUE(?, ?, NOW(), ?, 0, 3, ?)';
         $stmt = db_get_prepare_stmt($link, $sql, [$task['name'], $file_url, $task['date'], $task['progect']]);
