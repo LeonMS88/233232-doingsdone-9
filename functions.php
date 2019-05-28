@@ -23,16 +23,7 @@ function include_template($name, array $data = []) {
     return $result;
 }
 
-// Функция подсчета задач
-function count_task ($task_list, $progect_name) {                                                                                                  
-    $number_tasks = 0;                              
-    foreach($task_list as $item) {                  
-        if ($item['progect_id'] === $progect_name){     
-            $number_tasks++;                          
-        }
-    }
-    return $number_tasks;                           
-}  
+
 
 //Подсчитывает сколько осталось часов до каждой из имеющихся дат
 //Если кол-во часов до выполнения задачи меньше или равно 24, то добавляет строке с задачей класс task--important
@@ -111,4 +102,25 @@ function db_get_prepare_stmt($link, $sql, $data = []) {
     }
 
     return $stmt;
+}
+
+/**
+ * Проверяет переданную дату на соответствие формату 'ГГГГ-ММ-ДД'
+ *
+ * Примеры использования:
+ * is_date_valid('2019-01-01'); // true
+ * is_date_valid('2016-02-29'); // true
+ * is_date_valid('2019-04-31'); // false
+ * is_date_valid('10.10.2010'); // false
+ * is_date_valid('10/10/2010'); // false
+ *
+ * @param string $date Дата в виде строки
+ *
+ * @return bool true при совпадении с форматом 'ГГГГ-ММ-ДД', иначе false
+ */
+function is_date_valid(string $date) : bool {
+    $format_to_check = 'Y-m-d';
+    $dateTimeObj = date_create_from_format($format_to_check, $date);
+
+    return $dateTimeObj !== false && array_sum(date_get_last_errors()) === 0;
 }

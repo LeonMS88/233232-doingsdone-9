@@ -6,14 +6,14 @@ VALUES (NOW(), 'john@gmail.com', 'John', 'qwerty12345'),
 INSERT INTO progect (progect_name, user_id)
 VALUES ('Входящие', 1), ('Учеба', 2), ('Работа', 3), ('Домашние дела', 2), ('Авто', 1), ('Отпуск', 3);
 
-INSERT INTO task (task_name, task_category, task_file, task_create, task_deadline, task_completed, user_id, progect_id) 
-VALUES ('Собеседование в IT компанию', 'Работа', 'task.txt', NOW(), NOW(), 0,  3, 3), 
-		 ('Выполнить тестовое задание', 'Работа', 'task.txt', NOW(), NOW(), 0, 3, 3),
-		 ('Сделать задание первого раздела', 'Учеба', 'task.txt', NOW(), NOW(), 1, 2, 2),
-		 ('Встреча с другом', 'Входящие', 'task.txt', NOW(), NOW(), 0, 1, 1),
-		 ('Купить корм для кота', 'Домашние дела', 'task.txt', NOW(), NOW(), 0, 2, 4),
-		 ('Заказать пиццу', 'Домашние дела', 'task.txt',  NOW(), NOW(), 0, 2, 4),
-		 ('Поехать в NewYork', 'Отпуск', 'task.txt',  NOW(), NOW(), 1, 3, 6);
+INSERT INTO task (task_name, task_file, task_create, task_deadline, task_completed, user_id, progect_id) 
+VALUES ('Собеседование в IT компанию', 'task.txt', NOW(), NOW(), 0,  3, 3), 
+		 ('Выполнить тестовое задание', 'task.txt', NOW(), NOW(), 0, 3, 3),
+		 ('Сделать задание первого раздела', 'task.txt', NOW(), NOW(), 1, 2, 2),
+		 ('Встреча с другом', 'task.txt', NOW(), NOW(), 0, 1, 1),
+		 ('Купить корм для кота', 'task.txt', NOW(), NOW(), 0, 2, 4),
+		 ('Заказать пиццу', 'task.txt',  NOW(), NOW(), 0, 2, 4),
+		 ('Поехать в NewYork', 'task.txt',  NOW(), NOW(), 1, 3, 6);
 		 
 SELECT progect_name FROM progect WHERE user_id = '3';
 

@@ -22,7 +22,7 @@
 
 <table class="tasks">
     <!--цикл замены содержимого таблицы данными из масива задач-->
-    <?php foreach ($task_list as $key => $item): ?>
+    <?php foreach ($task_list as $item): ?>
         <?php if (!$item['task_completed'] || ($item['task_completed'] && $show_complete_tasks === 1)): ?>
             <tr class="tasks__item task <?php if ($item['task_completed']): ?>task--completed<?php endif ?> <?php if (dead_line($item['task_deadline']) <= 24 && !$item['task_completed']): ?>task--important<?php endif ?>">
                 <td class="task__select">
@@ -32,9 +32,9 @@
                     </label>
                 </td>
                 <td class="task__file">
-                    <a class="download-link" href="#"><?= htmlspecialchars($item['task_file']);?></a>
+                    <a class="download-link" href="<?= $file_url;?>"><?= htmlspecialchars($file_name);?></a>
                 </td>
-                <td class="task__date"><?= date('d.m.Y', $item['task_deadline']);?></td>
+                <td class="task__date"><?= date('Y-m-d', strtotime($item['task_deadline']));?></td>
             </tr>
         <?php endif ?>
     <?php endforeach; ?>
