@@ -63,6 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $reg_content = include_template ('reg.php', ['form' => $form, 'errors' => $errors]);
 
-$layout_content = include_template ('register.php', ['register_content' => $reg_content, 'title' => 'Дела в Порядке']);
+$layout_content = include_template ('layout.php', ['main_content' => $reg_content, 'title' => 'Дела в Порядке']);
 
 print($layout_content);

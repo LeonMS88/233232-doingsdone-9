@@ -11,6 +11,8 @@ $link = mysqli_connect('127.0.0.1', 'root', '', 'data_233232');
 //Установка кодировки в utf8
 mysqli_set_charset($link, "utf8");
 
+$user_id = $_SESSION['user']['user_id'];
+
 //Проверка соединения
 if (!$link) {
     print('Ошибка подключения: ' . mysqli_connect_error());
@@ -18,13 +20,13 @@ if (!$link) {
 
 //Выполнение запроса на получение списка проектов и списка задач
 else {
-    $sql = 'SELECT t.progect_id, p.progect_name, COUNT(t.task_name)
+    $sql = "SELECT t.progect_id, p.progect_name, COUNT(t.task_name)
             AS task_count
             FROM progect p
             LEFT JOIN task t
             ON t.progect_id = p.progect_id 
-            WHERE p.user_id = 3
-            GROUP BY p.progect_id';
+            WHERE p.user_id = '$user_id';
+            GROUP BY p.progect_id";
     $result = mysqli_query($link, $sql);
     if($result) {
         $progect = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -42,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //Проверка что поле с названием проекта заполненно
     foreach ($required as $key) {
 		if (empty($_POST[$key])) {
-            $errors[$key] = "Заполниет обязательное поле";
+            $errors[$key] = "Заполните обязательное поле";
 		}
 	}
 
@@ -75,8 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$file_name) {
             $file_url = NULL;
         }
-		$sql = 'INSERT INTO task (task_name, task_file, task_create, task_deadline, task_completed, user_id, progect_id)
-                VALUE(?, ?, NOW(), ?, 0, 3, ?)';
+		$sql = "INSERT INTO task (task_name, task_file, task_create, task_deadline, task_completed, user_id, progect_id)
+                VALUE(?, ?, NOW(), ?, 0, '$user_id', ?)";
         $stmt = db_get_prepare_stmt($link, $sql, [$task['name'], $file_url, $task['date'], $task['progect']]);
         $res = mysqli_stmt_execute($stmt);
         if ($res) {
@@ -87,9 +89,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-$form_content = include_template ('form.php', ['progect' => $progect, 'task' => $task, 'required' => $required, 'dict' => $dict, 'errors' => $errors]);
+$form_content = include_template ('form.php', ['progect' => $progect, 'task' => $task, 'required' => $required, 'dict' => $dict, 'errors' => $errors, 'user_id' => $user_id]);
 
-$layout_content = include_template ('layout.php', ['progect' => $progect, 'progect_id' => $progect_id,
+$layout_content = include_template ('layout.php', ['progect' => $progect, 'progect_id' => $progect_id, 'user_id' => $user_id,
                                                    'task_list' => $task_list, 'num_count' => $num_count, 
                                                    'main_content' => $form_content, 'title' => 'Дела в Порядке']);
 
