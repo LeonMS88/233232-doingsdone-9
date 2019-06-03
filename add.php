@@ -2,6 +2,10 @@
 
 include 'functions.php';
 
+session_start();
+
+if (isset($_SESSION['user'])) {
+
 //Показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
 
@@ -12,6 +16,7 @@ $link = mysqli_connect('127.0.0.1', 'root', '', 'data_233232');
 mysqli_set_charset($link, "utf8");
 
 $user_id = $_SESSION['user']['user_id'];
+$user_name = $_SESSION['user']['user_name'];
 
 //Проверка соединения
 if (!$link) {
@@ -25,7 +30,7 @@ else {
             FROM progect p
             LEFT JOIN task t
             ON t.progect_id = p.progect_id 
-            WHERE p.user_id = '$user_id';
+            WHERE p.user_id = '$user_id'
             GROUP BY p.progect_id";
     $result = mysqli_query($link, $sql);
     if($result) {
@@ -89,11 +94,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-$form_content = include_template ('form.php', ['progect' => $progect, 'task' => $task, 'required' => $required, 'dict' => $dict, 'errors' => $errors, 'user_id' => $user_id]);
+$form_content = include_template ('form.php', ['progect' => $progect, 'task' => $task, 'required' => $required, 'dict' => $dict, 
+                                               'errors' => $errors, 'user_name' => $user_name, 'user_id' => $user_id, ]);
 
 $layout_content = include_template ('layout.php', ['progect' => $progect, 'progect_id' => $progect_id, 'user_id' => $user_id,
-                                                   'task_list' => $task_list, 'num_count' => $num_count, 
+                                                   'user_name' => $user_name, 'task_list' => $task_list, 'num_count' => $num_count, 
                                                    'main_content' => $form_content, 'title' => 'Дела в Порядке']);
 
 print($layout_content);
 
+} else {
+    $guest_content = include_template('guest.php');
+    $layout_content = include_template('layout.php', ['main_content' => $guest_content,'title' => 'Дела в Порядке']);
+    print($layout_content);
+}
