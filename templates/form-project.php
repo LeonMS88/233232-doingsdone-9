@@ -5,7 +5,7 @@
         <label class="form__label" for="project_name">Название <sup>*</sup></label>
 
         <?php $class_name = isset($errors['name']) ? 'form__input--error' : '';
-              $name = isset($progect['name']) ? $progect['name'] : '';?>
+              $name = isset($progects['name']) ? $progects['name'] : '';?>
 
         <input class="form__input <?= $class_name ?>" type="text" name="name" id="project_name" value="<?= $name; ?>" placeholder="Введите название проекта">
         

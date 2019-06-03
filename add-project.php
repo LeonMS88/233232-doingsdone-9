@@ -25,7 +25,7 @@ if (!$link) {
 
 //Выполнение запроса на получение списка проектов
 else {
-    $sql = "SELECT t.progect_id, p.progect_name, COUNT(t.task_name)
+    $sql = "SELECT p.progect_id, p.progect_name, COUNT(t.task_name)
             AS task_count
             FROM progect p
             LEFT JOIN task t
@@ -41,7 +41,7 @@ else {
 //Проверка что форма была отправленна
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    $progect = $_POST;
+    $progects = $_POST;
     $required = ['name'];
     $dict = ['name' => 'Название'];
     $errors = [];
@@ -60,19 +60,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 //Добавление проекта в БД    
     if (!count($errors)) {
-		$sql = "INSERT INTO progect (progect_name, user_id)
-                VALUE(?, '$user_id')";
-        $stmt = db_get_prepare_stmt($link, $sql, [$progect['name']]);
-        $res = mysqli_stmt_execute($stmt);
-        if ($res) {
-            header('Location: index.php');
-        }   
+            $sql = "INSERT INTO progect (progect_name, user_id)
+                    VALUE(?, '$user_id')";
+            $stmt = db_get_prepare_stmt($link, $sql, [$progect['name']]);
+            $res = mysqli_stmt_execute($stmt);
+            if ($res) {
+                header('Location: index.php');
+            }  
+
     }
 }
 
 
 
-$form_project= include_template ('form-project.php', ['progect' => $progect, 'required' => $required, 'dict' => $dict, 
+$form_project= include_template ('form-project.php', ['progect' => $progect, 'progects' => $progects, 'required' => $required, 'dict' => $dict, 
                                                    'errors' => $errors, 'progect_name' => $progect_name, 'user_id' => $user_id, ]);
 
 $layout_content = include_template ('layout.php', ['progect' => $progect, 'progect_id' => $progect_id, 'user_id' => $user_id,
