@@ -1,14 +1,14 @@
 
     <h2 class="content__main-heading">Добавление задачи</h2>
 
-    <form class="form"  action="add.php" method="post" autocomplete="off" enctype="multipart/form-data">
+    <form class="form"  action="add-task.php" method="post" autocomplete="off" enctype="multipart/form-data">
         <div class="form__row">
             <label class="form__label" for="name">Название <sup>*</sup></label>
 
             <?php $class_name = isset($errors['name']) ? 'form__input--error' : '';
                   $name = isset($_POST['name']) ? $_POST['name'] : '';?>
 
-            <input class="form__input <?= $errors['name'] ? 'form__input--error' : '' ?>" type="text" name="name" id="name" value="<?= $name; ?>" placeholder="Введите название">
+            <input class="form__input <?= $class_name ?>" type="text" name="name" id="name" value="<?= $name; ?>" placeholder="Введите название">
             <?php if (isset($errors['name'])) : ?>
                 <p class='form__message'><?= $errors['name'] ?></p>
             <?php endif ?>

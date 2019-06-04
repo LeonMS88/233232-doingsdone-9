@@ -19,42 +19,60 @@
                 <img src="img/logo.png" width="153" height="42" alt="Логотип Дела в порядке">
             </a>
 
-            <div class="main-header__side">
-                <a class="main-header__side-item button button--plus open-modal" href="add.php">Добавить задачу</a>
+            <?php if (!isset($_SESSION['user'])): ?>
+                <div class="main-header__side">
+                    <a class="main-header__side-item button button--transparent" href="auth.php">Войти</a>
+                </div>
+            <?php else: ?>
 
-                <div class="main-header__side-item user-menu">
-                    <div class="user-menu__data">
-                        <p>Константин</p>
+                <div class="main-header__side">
+                    <a class="main-header__side-item button button--plus open-modal" href="add-task.php">Добавить задачу</a>
 
-                        <a href="#">Выйти</a>
+                    <div class="main-header__side-item user-menu">
+                        <div class="user-menu__data">
+                            <p><?= strip_tags($user_name); ?></p>
+                            <a href="logout.php">Выйти</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+            <?php endif; ?>
+
         </header>
 
         <div class="content">
-            <section class="content__side">
-                <h2 class="content__side-heading">Проекты</h2>
 
-                <nav class="main-navigation">
-                    <ul class="main-navigation__list">
-                        <!--цикл для прохода по массиву проектов-->
-                        <?php foreach ($progect as $key => $item): ?>
-                        <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link <?php if (isset($_GET['progect_id']) && $progect_id === $progect[$key]["progect_id"]): ?>main-navigation__list-item--active<?php endif ?>" href="/index.php?progect_id=<?=$progect[$key]["progect_id"]?>"><?=htmlspecialchars($item["progect_name"]);?></a>
-                            <span class="main-navigation__list-item-count"><?= $item["task_count"]?></span>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </nav>
+            <?php if (!isset($_SESSION['user'])): ?>
+                <section class="content__side">
+                    <p class="content__side-info">Если у вас уже есть аккаунт, авторизуйтесь на сайте</p>
+                    <a class="button button--transparent content__side-button" href="auth.php">Войти</a>
+                </section>
+            <?php else: ?>
 
-                <a class="button button--transparent button--plus content__side-button"
-                   href="pages/form-project.html" target="project_add">Добавить проект</a>
-            </section>
+                <section class="content__side">
+                    <h2 class="content__side-heading">Проекты</h2>
+
+                    <nav class="main-navigation">
+                        <ul class="main-navigation__list">
+                            <!--цикл для прохода по массиву проектов-->
+                            <?php foreach ($progect as $key => $item): ?>
+                                <li class="main-navigation__list-item">
+                                    <a class="main-navigation__list-item-link <?php if (isset($_GET['progect_id']) && $progect_id === $progect[$key]["progect_id"]): ?>main-navigation__list-item--active<?php endif ?>" href="/index.php?progect_id=<?=$progect[$key]["progect_id"]?>"><?=htmlspecialchars($item["progect_name"]);?></a>
+                                    <span class="main-navigation__list-item-count"><?= $item["task_count"]?></span>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </nav>
+                
+                    <a class="button button--transparent button--plus content__side-button" href="add-project.php" target="project_add">Добавить проект</a>
+                </section>
+
+            <?php endif; ?>
 
             <main class="content__main">
                 <?=$main_content;?>
             </main>
+
         </div>
     </div>
 </div>
@@ -67,7 +85,9 @@
             <p>Веб-приложение для удобного ведения списка дел.</p>
         </div>
 
-        <a class="main-footer__button button button--plus" href="add.php">Добавить задачу</a>
+        <?php if (isset($_SESSION['user'])): ?>
+            <a class="main-footer__button button button--plus" href="add-task.php">Добавить задачу</a>
+        <?php endif; ?>
 
         <div class="main-footer__social social">
             <span class="visually-hidden">Мы в соцсетях:</span>
