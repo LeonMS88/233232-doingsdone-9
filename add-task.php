@@ -25,7 +25,7 @@ if (!$link) {
 
 //Выполнение запроса на получение списка проектов и списка задач
 else {
-    $sql = "SELECT t.progect_id, p.progect_name, COUNT(t.task_name)
+    $sql = "SELECT p.progect_id, p.progect_name, COUNT(t.task_name)
             AS task_count
             FROM progect p
             LEFT JOIN task t

@@ -60,14 +60,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 //Добавление проекта в БД    
     if (!count($errors)) {
+        if(in_array($progects['name'], array_column($progect, 'progect_name'))) {
+            $errors['name'] = "Такой проект существует";   
+        } else {
             $sql = "INSERT INTO progect (progect_name, user_id)
                     VALUE(?, '$user_id')";
-            $stmt = db_get_prepare_stmt($link, $sql, [$progect['name']]);
+            $stmt = db_get_prepare_stmt($link, $sql, [$progects['name']]);
             $res = mysqli_stmt_execute($stmt);
             if ($res) {
                 header('Location: index.php');
-            }  
-
+            }
+        }  
     }
 }
 
